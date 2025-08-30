@@ -21,7 +21,7 @@ namespace DystopianWest
         Texture2D bg;
         Texture2D shooter;
         Vector2 Position = new Vector2(10, 150);
-        //ScaledSprite sprite;
+
         Rectangle Rect;
         Player _player;
         Texture2D enemy;
@@ -96,7 +96,6 @@ namespace DystopianWest
                 if (currentKeyboardState.IsKeyDown(Keys.Space))
                 {
                     _player.isAlive = true;
-                    Log("u gae");
                 }
                 return;
             }
@@ -104,7 +103,6 @@ namespace DystopianWest
             if (currentKeyboardState.IsKeyDown(Keys.P) && prevKeyboardState.IsKeyUp(Keys.P))
             {
                 isPaused = !isPaused;
-                //isPressed = true;
             }
 
             if (isPaused)
@@ -170,10 +168,6 @@ namespace DystopianWest
             projectiles.RemoveAll(p => !p.IsActive);
 
             //projectiles collision and updates
-
-            #region DO: check for game over state.
-            
-            #endregion
             
 
         }
@@ -184,17 +178,17 @@ namespace DystopianWest
             if (_player.isAlive == false)
             {
                 GraphicsDevice.Clear(Color.Black);
-                //_spriteBatch.Begin();
+
                 _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 Log("Ded");
-                _spriteBatch.DrawString(font, "sybau :(", new Vector2(150, 150), Color.White);
+                _spriteBatch.DrawString(font, "Game over :(", new Vector2(150, 150), Color.White);
                 _spriteBatch.End();
             }
             #endregion
             else if (isPaused)
             {
                 GraphicsDevice.Clear(Color.Black);
-                //_spriteBatch.Begin();
+
                 _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 Log("Paused");
                 _spriteBatch.DrawString(font, "PAUSED!", new Vector2(1920/2, 1080/2), Color.White);
@@ -206,7 +200,7 @@ namespace DystopianWest
                 _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 _spriteBatch.Draw(bg, Rect, Color.White);
                 _player.Draw(_spriteBatch);
-                //enemy1.Draw(_spriteBatch);
+
                 foreach (Projectile p in projectiles) {
                     p.Draw(_spriteBatch);
                 }
@@ -241,14 +235,10 @@ namespace DystopianWest
             {
                 return;
             }
-            enemies.Add(new Enemy(enemy, new Vector2(enemyX, -enemy.Height))); // change y to -enemy.Height
+            enemies.Add(new Enemy(enemy, new Vector2(enemyX, -enemy.Height))); 
             enemyX= rnd.Next(200,1800);
         }
 
-        //protected void GameOver()
-        //{
-
-        //}
 
         protected void Log(string msg)
         {
@@ -257,6 +247,3 @@ namespace DystopianWest
     }
 }
 
-/*why does hierarchcy of game over statement affect the game in update method?
-how to draw gameover screen
-how to make new scenes and connect (main menu only ig)*/
